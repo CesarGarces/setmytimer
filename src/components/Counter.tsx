@@ -111,9 +111,6 @@ export default function Counter() {
           </Button>
           <div className="switch-group">
             <Switch id="mute-mode" checked={!isMuted} onChange={toggleMute} />
-            <Box component="span">
-              {isMuted ? "Activar alarma" : "Silenciar alarma"}
-            </Box>
             <IconButton>
               {isMuted ? <NotificationsOffIcon /> : <NotificationsIcon />}
             </IconButton>
