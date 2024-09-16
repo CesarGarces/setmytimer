@@ -1,0 +1,98 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #242424;
+  /* bg-gray-100 */
+}
+
+.box {
+  padding: 2rem;
+  /* p-8 */
+  background-color: white;
+  border-radius: 0.5rem;
+  /* borderRadius 2 */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  /* boxShadow 3 */
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-family: monospace;
+  color: black;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  /* space-x-2 */
+  margin-bottom: 1rem;
+  /* mb-4 */
+}
+
+.switch-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: black;
+  /* space-x-2 */
+}
+
+.grid {
+  display: grid;
+  grid-template-areas:
+    "seconds minutes hours days";
+  gap: 16px;
+}
+
+.seconds {
+  grid-area: seconds;
+}
+
+.minutes {
+  grid-area: minutes;
+}
+
+.hours {
+  grid-area: hours;
+}
+
+.days {
+  grid-area: days;
+}
+
+.grid>div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.grid button {
+  width: 100%;
+  max-width: 150px;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  /* gap-4 */
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  /* space-y-4 */
+}
+
+.full-width-button {
+  width: 100%;
+}
