@@ -25,8 +25,7 @@ const AdSense: React.FC = () => {
   return (
     <ins className="adsbygoogle"
       style={{ display: 'block', textAlign: 'center' }}
-      data-ad-client="ca-pub-XXXXXXXXXXXXXX" // Reemplaza con tu ID de cliente
-      data-ad-slot="XXXXXXXXXX" // Reemplaza con tu ID de slot
+      data-ad-client="ca-pub-9352857073091752" // Reemplaza con tu ID de cliente
       data-ad-format="auto"></ins>
   );
 };
