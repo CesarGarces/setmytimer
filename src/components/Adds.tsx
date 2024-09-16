@@ -8,7 +8,7 @@ const AdSense: React.FC = () => {
   useEffect(() => {
     // Cargar el script de Google AdSense
     const script = document.createElement('script');
-    script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9352857073091752';
+    script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
     script.async = true;
     script.onload = () => {
       // Configurar Google AdSense una vez que el script haya cargado
