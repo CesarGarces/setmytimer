@@ -9,6 +9,9 @@ import {
   Box,
   Input,
   IconButton,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
 } from "@mui/material";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import NotificationsOffIcon from "@mui/icons-material/NotificationsOff";
@@ -19,11 +22,12 @@ export default function Counter() {
   const [isRunning, setIsRunning] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
+  const [selectedAudio, setSelectedAudio] = useState("/alarm-sound-1.mp3");
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    audioRef.current = new Audio("/alarm-sound-1.mp3");
-  }, []);
+    audioRef.current = new Audio(selectedAudio);
+  }, [selectedAudio]);
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -41,7 +45,7 @@ export default function Counter() {
     }
 
     return () => clearInterval(interval);
-  }, [isRunning, time, isMuted]);
+  }, [isRunning, time, isMuted, selectedAudio]);
 
   const formatTime = (seconds: number) => {
     const days = Math.floor(seconds / (3600 * 24));
@@ -94,6 +98,10 @@ export default function Counter() {
     });
   };
 
+  const handleAudioChange = (event: SelectChangeEvent<string>) => {
+    setSelectedAudio(event.target.value as string);
+  };
+
   return (
     <div className="container">
       <Box className="box">
@@ -114,6 +122,16 @@ export default function Counter() {
             <IconButton>
               {isMuted ? <NotificationsOffIcon /> : <NotificationsIcon />}
             </IconButton>
+            <Select
+              value={selectedAudio}
+              onChange={handleAudioChange}
+              displayEmpty
+              inputProps={{ 'aria-label': 'Select Audio' }}
+              style={{ marginLeft: 10 }}
+            >
+              <MenuItem value="/alarm-sound-1.mp3">Audio 1</MenuItem>
+              <MenuItem value="/alarm-sound-2.mp3">Audio 2</MenuItem>
+            </Select>
           </div>
         </div>
         <div className="grid">
