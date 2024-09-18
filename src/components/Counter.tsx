@@ -170,7 +170,7 @@ export default function Counter() {
         </div>
         {customTimers.length > 0 &&
           <div className="custom-timers">
-            <h3>Cronómetros Personalizados</h3>
+            <h3>Tiempos Personalizados</h3>
             {customTimers.map((timer, index) => (
               <div key={index} className="custom-timer">
                 <Button variant="outlined" onClick={() => setTime(timer)}>
