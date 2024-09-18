@@ -97,10 +97,6 @@
   /* space-y-4 */
 }
 
-.full-width-button {
-  width: 100%;
-}
-
 .custom-timers {
   display: flex;
   flex-direction: column;

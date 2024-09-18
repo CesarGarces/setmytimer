@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import NotificationsOffIcon from "@mui/icons-material/NotificationsOff";
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import "./Counter.css";
 
 export default function Counter() {
@@ -84,9 +85,12 @@ export default function Counter() {
     const totalSeconds = days * 86400 + hours * 3600 + minutes * 60 + seconds;
     setTime(totalSeconds);
     setShowModal(false);
+  };
 
-    // Agregar el tiempo personalizado a la lista de customTimers
+  const handleSaveCustomTime = (days: number, hours: number, minutes: number, seconds: number) => {
+    const totalSeconds = days * 86400 + hours * 3600 + minutes * 60 + seconds;
     setCustomTimers([...customTimers, totalSeconds]);
+    setShowModal(false);
   };
 
   const toggleMute = () => {
@@ -104,6 +108,10 @@ export default function Counter() {
 
   const handleAudioChange = (event: SelectChangeEvent<string>) => {
     setSelectedAudio(event.target.value as string);
+  };
+
+  const handleDeleteCustomTimer = (index: number) => {
+    setCustomTimers((prevTimers) => prevTimers.filter((_, i) => i !== index));
   };
 
   return (
@@ -161,17 +169,17 @@ export default function Counter() {
           </div>
         </div>
 
-        {/* Botones de cronómetros personalizados */}
         <div className="custom-timers">
           <h3>Cronómetros Personalizados</h3>
           {customTimers.map((timer, index) => (
-            <Button
-              key={index}
-              variant="outlined"
-              onClick={() => setTime(timer)}
-            >
-              Personalizado {index + 1}: {formatTime(timer)}
-            </Button>
+            <div key={index} className="custom-timer">
+              <Button variant="outlined" onClick={() => setTime(timer)}>
+                Personalizado {index + 1}: {formatTime(timer)}
+              </Button>
+              <IconButton onClick={() => handleDeleteCustomTimer(index)} aria-label="delete" color="error">
+                <HighlightOffIcon />
+              </IconButton>
+            </div>
           ))}
         </div>
       </Box>
@@ -179,7 +187,7 @@ export default function Counter() {
       <Dialog open={showModal} onClose={() => setShowModal(false)}>
         <DialogTitle>Establecer tiempo personalizado</DialogTitle>
         <DialogContent>
-          <CustomTimeForm onSubmit={handleCustomTime} />
+          <CustomTimeForm onSet={handleCustomTime} onSave={handleSaveCustomTime} />
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setShowModal(false)}>Cerrar</Button>
@@ -189,19 +197,30 @@ export default function Counter() {
   );
 }
 
-function CustomTimeForm({ onSubmit }: { onSubmit: (d: number, h: number, m: number, s: number) => void }) {
+function CustomTimeForm({
+  onSet,
+  onSave,
+}: {
+  onSet: (d: number, h: number, m: number, s: number) => void;
+  onSave: (d: number, h: number, m: number, s: number) => void;
+}) {
   const [days, setDays] = useState(0);
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSet = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(days, hours, minutes, seconds);
+    onSet(days, hours, minutes, seconds);
+  };
+
+  const handleSave = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSave(days, hours, minutes, seconds);
   };
 
   return (
-    <form onSubmit={handleSubmit} className="form">
+    <form className="form">
       <div className="form-group">
         <Box>Días</Box>
         <Input
@@ -242,10 +261,12 @@ function CustomTimeForm({ onSubmit }: { onSubmit: (d: number, h: number, m: numb
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSeconds(parseInt(e.target.value))}
         />
       </div>
-      <Button disabled={!days && !hours && !minutes && !seconds} type="submit" className="full-width-button">
+      <Button disabled={!days && !hours && !minutes && !seconds} type="submit" variant="contained" color="success" onClick={handleSet}>
         Establecer
       </Button>
-      <Button disabled={!days && !hours && !minutes && !seconds} type="submit" variant="contained">Guardar</Button>
+      <Button disabled={!days && !hours && !minutes && !seconds} type="submit" variant="contained" color="primary" onClick={(e: React.FormEvent) => { handleSave(e); handleSet(e); }}>
+        Guardar
+      </Button>
     </form>
   );
 }
