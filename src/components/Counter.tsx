@@ -23,6 +23,7 @@ export default function Counter() {
   const [showModal, setShowModal] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [selectedAudio, setSelectedAudio] = useState("/alarm-sound-1.mp3");
+  const [customTimers, setCustomTimers] = useState<number[]>([]);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
@@ -83,6 +84,9 @@ export default function Counter() {
     const totalSeconds = days * 86400 + hours * 3600 + minutes * 60 + seconds;
     setTime(totalSeconds);
     setShowModal(false);
+
+    // Agregar el tiempo personalizado a la lista de customTimers
+    setCustomTimers([...customTimers, totalSeconds]);
   };
 
   const toggleMute = () => {
@@ -156,6 +160,20 @@ export default function Counter() {
             <Button variant="outlined" onClick={() => setQuickTime(172800)}>2 días</Button>
           </div>
         </div>
+
+        {/* Botones de cronómetros personalizados */}
+        <div className="custom-timers">
+          <h3>Cronómetros Personalizados</h3>
+          {customTimers.map((timer, index) => (
+            <Button
+              key={index}
+              variant="outlined"
+              onClick={() => setTime(timer)}
+            >
+              Personalizado {index + 1}: {formatTime(timer)}
+            </Button>
+          ))}
+        </div>
       </Box>
 
       <Dialog open={showModal} onClose={() => setShowModal(false)}>
@@ -224,9 +242,10 @@ function CustomTimeForm({ onSubmit }: { onSubmit: (d: number, h: number, m: numb
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSeconds(parseInt(e.target.value))}
         />
       </div>
-      <Button type="submit" className="full-width-button">
+      <Button disabled={!days && !hours && !minutes && !seconds} type="submit" className="full-width-button">
         Establecer
       </Button>
+      <Button disabled={!days && !hours && !minutes && !seconds} type="submit" variant="contained">Guardar</Button>
     </form>
   );
 }

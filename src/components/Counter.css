@@ -52,18 +52,22 @@
 }
 
 .seconds {
+  color: black;
   grid-area: seconds;
 }
 
 .minutes {
+  color: black;
   grid-area: minutes;
 }
 
 .hours {
+  color: black;
   grid-area: hours;
 }
 
 .days {
+  color: black;
   grid-area: days;
 }
 
@@ -95,4 +99,11 @@
 
 .full-width-button {
   width: 100%;
+}
+
+.custom-timers {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  /* space-y-4 */
 }
