@@ -168,20 +168,21 @@ export default function Counter() {
             <Button variant="outlined" onClick={() => setQuickTime(172800)}>2 días</Button>
           </div>
         </div>
-
-        <div className="custom-timers">
-          <h3>Cronómetros Personalizados</h3>
-          {customTimers.map((timer, index) => (
-            <div key={index} className="custom-timer">
-              <Button variant="outlined" onClick={() => setTime(timer)}>
-                Personalizado {index + 1}: {formatTime(timer)}
-              </Button>
-              <IconButton onClick={() => handleDeleteCustomTimer(index)} aria-label="delete" color="error">
-                <HighlightOffIcon />
-              </IconButton>
-            </div>
-          ))}
-        </div>
+        {customTimers.length > 0 &&
+          <div className="custom-timers">
+            <h3>Cronómetros Personalizados</h3>
+            {customTimers.map((timer, index) => (
+              <div key={index} className="custom-timer">
+                <Button variant="outlined" onClick={() => setTime(timer)}>
+                  Personalizado {index + 1}: {formatTime(timer)}
+                </Button>
+                <IconButton onClick={() => handleDeleteCustomTimer(index)} aria-label="delete" color="error">
+                  <HighlightOffIcon />
+                </IconButton>
+              </div>
+            ))}
+          </div>
+        }
       </Box>
 
       <Dialog open={showModal} onClose={() => setShowModal(false)}>
