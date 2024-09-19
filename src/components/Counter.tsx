@@ -154,7 +154,7 @@ export default function Counter() {
           </div>
           <div className="minutes">
             <h3>Minutos</h3>
-            <Button variant="outlined" onClick={() => setQuickTime(300)}>5 minuto</Button>
+            <Button variant="outlined" onClick={() => setQuickTime(300)}>5 minutos</Button>
             <Button variant="outlined" onClick={() => setQuickTime(1800)}>30 minutos</Button>
           </div>
           <div className="hours">
